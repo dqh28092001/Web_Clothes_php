@@ -40,47 +40,11 @@ session_start();
     } else {
         $tam = '';
     }
-    if ($tam == 'categories') {
-       include('./Components/Categories/Categories.php');
-    } elseif ($tam == 'categories') {
-        include('./Components/Categories/Categories.php');
-     }
-    // } elseif ($tam == 'danhmuc') {
-    //     include('include/danhmuc.php');
-    // } elseif ($tam == 'introduce') {
-    //     include('./Components/Pages/Introduce/introduce.php');
-    // } elseif ($tam == 'men') {
-    //     include('./Components/Pages/Men/men.php');
-    // } elseif ($tam == 'ladies') {
-    //     include('./Components/Pages/Ladies/ladies.php');
-    // } elseif ($tam == 'blogs') {
-    //     include('./Components/Pages/Blogs/blogs.php');
-    // } elseif ($tam == 'contact') {
-    //     include('./Components/Pages/Contact/contact.php');
-    // } elseif ($tam == 'chitietsp') {
-    //     include('./Controllers/detaill/chitietsp.php    ');
-    // } elseif ($tam == 'contact') {
-    //     include('./contact.php');
-    // } elseif ($tam == 'giohang') {
-    //     include('./Controllers/carts/giohang.php');
-    // } elseif ($tam == 'Like') {
-    //     include('././Controllers/Like/Like.php');
-    // } elseif ($tam == 'timkiem') {
-    //     include('./Controllers/search/timkiem.php');
-    // } elseif ($tam == 'tintuc') {
-    //     include('./Components/kienthuc/tintuc.php');
-    // } elseif ($tam == 'about') {
-    //     include('./Components/Answers/About/about.php');
-    // } elseif ($tam == 'contact') {
-    //     include('./Components/Pages/Contact/contact.php');
-    // } elseif ($tam == 'terms') {
-    //     include('./Components/Answers/Terms/terms.php');
-    // } elseif ($tam == 'privacy') {
-    //     include('./Components/Answers/Privacy/privacy.php');
-    // } elseif ($tam == 'chitiettin') {
-    //     include('./Controllers/detaill/chitiettin.php');
-    // } elseif ($tam == 'xemdonhang') {
-    //     include('include/xemdonhang.php');
+    if ($tam == 'Shop_by_oder') {
+        include('./Components/Shop_by_oder/Shop_by_oder.php');
+    } elseif ($tam == '') {
+        // include('./Components/Shop_by_oder/Shop_by_oder.php');
+    }
     // } 
     elseif ($tam == 'checkout') {
         include('./Controllers/payment/checkout.php');
