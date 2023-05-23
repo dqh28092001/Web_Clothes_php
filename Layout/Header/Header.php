@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href=".Authentication//Login/Login.css" type="text/css">
 </head>
 
 <body>
@@ -49,8 +50,8 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="./Authentication/Login/Login.php">Login</a>
+            <a href="./Authentication/Register/Register.php">Register</a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -74,7 +75,7 @@
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href=".//product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
+                                    <!-- <li><a href="./shop-cart.php">Shop Cart</a></li> -->
                                     <li><a href="./checkout.php">Checkout</a></li>
                                     <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
@@ -87,15 +88,15 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <a href="./Authentication/Login/Login.php">Login</a>
+                            <a href="./Authentication/Register/Register.php">Register</a>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="index.php?quanly=Shop_by_oder"><span class="icon_bag_alt"></span>
+                            <li><a href="index.php?quanly=shop_cart"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>

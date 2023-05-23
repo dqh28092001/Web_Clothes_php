@@ -32,7 +32,7 @@ session_start();
 
 <body>
 
-    <?php
+<?php
     include('./Layout/Header/Header.php');
 
     if (isset($_GET['quanly'])) {
@@ -40,24 +40,23 @@ session_start();
     } else {
         $tam = '';
     }
-    if ($tam == 'Shop_by_oder') {
+    if ($tam == 'trentop') {
+        include('./Components/Trend/TrendTop.php');
+    } elseif ($tam == 'trenbottom') {
+        include('./Components/Trend/TrendBotom.php');
+    } elseif ($tam == 'shop_cart') {
         include('./Components/Shop_by_oder/Shop_by_oder.php');
-    } elseif ($tam == '') {
-        // include('./Components/Shop_by_oder/Shop_by_oder.php');
-    }
-    // } 
-    elseif ($tam == 'checkout') {
-        include('./Controllers/payment/checkout.php');
-    } else {
+    }  else {
         include('./Components/Categories/Categories.php');
         include('./Components/Product/New_Product.php');
         include('./Components/Banner/Banner.php');
         include('./Components/Trend_Section/Trend_Section.php');
         include('./Components/Discount/Discount.php');
         include('./Components/Services_Section/Services_Section.php');
-        include('./Components/instagram/instagram.php');
     }
+    include('./Components/instagram/instagram.php');
     include('./Layout/Footer/Footer.php');
+
     ?>
 
 
