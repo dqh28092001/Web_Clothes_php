@@ -63,7 +63,7 @@
                             <tbody>
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="../../img/shop-cart/cp-1.jpg" alt="">
+                                        <img src="./img/shop-cart/cp-1.jpg" alt="">
                                         <div class="cart__product__item__title">
                                             <h6>Chain bucket bag</h6>
                                             <div class="rating">
@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="../../img/shop-cart/cp-2.jpg" alt="">
+                                        <img src="./img/shop-cart/cp-2.jpg" alt="">
                                         <div class="cart__product__item__title">
                                             <h6>Zip-pockets pebbled tote briefcase</h6>
                                             <div class="rating">
@@ -109,7 +109,7 @@
                                 </tr>
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="../../img/shop-cart/cp-3.jpg" alt="">
+                                        <img src="./img/shop-cart/cp-3.jpg" alt="">
                                         <div class="cart__product__item__title">
                                             <h6>Black jean</h6>
                                             <div class="rating">
@@ -132,7 +132,7 @@
                                 </tr>
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="../../img/shop-cart/cp-4.jpg" alt="">
+                                        <img src="./img/shop-cart/cp-4.jpg" alt="">
                                         <div class="cart__product__item__title">
                                             <h6>Cotton Shirt</h6>
                                             <div class="rating">

@@ -20,19 +20,19 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../../css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../../css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
 
 <body>
 
-<?php
+    <?php
     include('./Layout/Header/Header.php');
 
     if (isset($_GET['quanly'])) {
@@ -46,7 +46,17 @@ session_start();
         include('./Components/Trend/TrendBotom.php');
     } elseif ($tam == 'shop_cart') {
         include('./Components/Shop_by_oder/Shop_by_oder.php');
-    }  else {
+    } elseif ($tam == 'shop') {
+        include('./Components/Shop/shop.php');
+    } elseif ($tam == 'blog-detail') {
+        include('./Components/Blog-Detail/blog-details.php');
+    } elseif ($tam == 'blog') {
+        include('./Components/Blog/blog.php');
+    }  elseif ($tam == 'blog-detail') {
+        include('./Components/Blog-Detail/blog-details.php');
+    }  
+    else {
+
         include('./Components/Categories/Categories.php');
         include('./Components/Product/New_Product.php');
         include('./Components/Banner/Banner.php');
