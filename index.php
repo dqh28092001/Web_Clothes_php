@@ -52,8 +52,14 @@ session_start();
         include('./Components/Blog-Detail/blog-details.php');
     } elseif ($tam == 'blog') {
         include('./Components/Blog/blog.php');
-    }  elseif ($tam == 'blog-detail') {
-        include('./Components/Blog-Detail/blog-details.php');
+    }  elseif ($tam == 'contact') {
+        include('./Components/Contact/contact.php');
+    }  elseif ($tam == 'checkout') {
+        include('./Components/Checkout/checkout.php');
+    }  elseif ($tam == 'contact') {
+        include('./Components/Contact/contact.php');
+    }  elseif ($tam == 'contact') {
+        include('./Components/Contact/contact.php');
     }  
     else {
 
