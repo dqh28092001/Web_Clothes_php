@@ -75,7 +75,8 @@
                                 <ul class="dropdown">
                                     <li><a href="./product-details.php">Product Details</a></li>
                                     <!-- <li><a href="./shop-cart.php">Shop Cart</a></li> -->
-                                    <li><a href="index.php?quanly=checkout">Checkout</a></li>
+                                    <li><a href="index.php?quanly=checkout
+                                    ">Checkout</a></li>
                                     <li><a href="index.php?quanly=blog-detail">Blog Details</a></li>
                                 </ul>
                             </li>
