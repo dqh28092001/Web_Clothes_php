@@ -1,5 +1,12 @@
 <?php 
 session_start();
+
+if(isset($_SESSION['auth'])){
+	$_SESSION['message'] = "You are already logged in";
+	header('Location: ../../index.php');
+    exit();
+
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,6 +23,7 @@ session_start();
 	<link rel="stylesheet" href="css/style.css">
 
 </head>
+
 
 <body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
 	<section class="ftco-section">

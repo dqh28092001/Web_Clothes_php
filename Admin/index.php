@@ -1,4 +1,9 @@
-<?php include('includes/Header.php'); ?>
+<?php 
+include('includes/Header.php');
+include('../Middleware/adminMiddleware.php');
+
+
+?>
 
 <div class="container">
     <div class="row mt-4">

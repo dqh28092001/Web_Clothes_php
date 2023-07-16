@@ -3,13 +3,13 @@
 
 // session_start();
 
-$servername = "localhost";
+$host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "phpecom";
+$dbname = "web_clother";
 
 // Create connection
-$con = mysqli_connect($servername, $username, $password, $dbname);
+$con = mysqli_connect($host, $username, $password, $dbname);
 mysqli_set_charset($con, 'utf8');
 
 // Check connection

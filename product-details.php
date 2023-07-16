@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
+    Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -107,7 +107,7 @@
             </div>
         </div>
     </header>
-    <!-- Header Section End -->
+    <!-- Header Section End
 
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">

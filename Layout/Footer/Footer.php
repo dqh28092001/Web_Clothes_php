@@ -8,7 +8,7 @@
                         <a href="./index.php"><img src="img/logo.png" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    cilisis.</p>
+                        cilisis.</p>
                     <div class="footer__payment">
                         <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
                         <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
@@ -61,7 +61,9 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy; <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
@@ -70,6 +72,26 @@
 </footer>
 <!-- Footer Section End -->
 
-    
+<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="../../assets/js/custom.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+
+
+<!-- Alertify JS -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <script>
+          alertify.set('notifier','position', 'top-right');
+            <?php 
+                if(isset($_SESSION['status']))
+                {
+            ?>
+                    alertify.success('<?=$_SESSION['status']?>');
+            <?php
+                    unset($_SESSION['status']);        
+                } 
+            ?>
+        </script>
 </body>
+
 </html>

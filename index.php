@@ -31,19 +31,19 @@ session_start();
 </head>
 
 <body>
-<?php
-                    if (isset($_SESSION['message'])) {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Hey!</strong> <?= $_SESSION['message']; ?> .
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php
-                    unset($_SESSION['message']);
-                    }
-                    ?>
+    <?php
+    if (isset($_SESSION['message'])) {
+    ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Hey!</strong> <?= $_SESSION['message']; ?> .
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php
+        unset($_SESSION['message']);
+    }
+    ?>
     <?php
     include('./Layout/Header/Header.php');
 
@@ -64,16 +64,15 @@ session_start();
         include('./Components/Blog-Detail/blog-details.php');
     } elseif ($tam == 'blog') {
         include('./Components/Blog/blog.php');
-    }  elseif ($tam == 'contact') {
+    } elseif ($tam == 'contact') {
         include('./Components/Contact/contact.php');
-    }  elseif ($tam == 'checkout') {
+    } elseif ($tam == 'checkout') {
         include('./Components/Checkout/checkout.php');
-    }  elseif ($tam == 'contact') {
+    } elseif ($tam == 'contact') {
         include('./Components/Contact/contact.php');
-    }  elseif ($tam == 'contact') {
-        include('./Components/Contact/contact.php');
-    }  
-    else {
+    } elseif ($tam == 'products') {
+        include('./products.php');
+    } else {
 
         include('./Components/Categories/Categories.php');
         include('./Components/Product/New_Product.php');
