@@ -1,20 +1,21 @@
-<!-- Footer Section Begin -->
+    
+    <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-7">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.php"><img src="../img/logo.png" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         cilisis.</p>
                     <div class="footer__payment">
-                        <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
+                        <a href="#"><img src="../img/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="../img/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="../img/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="../img/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="../img/payment/payment-5.png" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -72,11 +73,29 @@
 </footer>
 <!-- Footer Section End -->
 
-<script src="../../assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-<script src="../../assets/js/custom.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
+<!-- thanh loc san pham php -->
+<script type="text/javascript" src="/WEB_CLOTHES_PHP/assets/js/locsp.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+
+
+<script src="/WEB_CLOTHES_PHP/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/WEB_CLOTHES_PHP/assets/js/jquery-3.6.0.min.js"></script>
+<script src="/WEB_CLOTHES_PHP/assets/js/custom.js"></script>
+<script src="/WEB_CLOTHES_PHP/assets/js/owl.carousel.min.js"></script>
+
+
+ <!-- Js Plugins -->
+    <script src="/WEB_CLOTHES_PHP/js/jquery-3.3.1.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/bootstrap.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/jquery.magnific-popup.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/jquery-ui.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/mixitup.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/jquery.countdown.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/jquery.slicknav.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/owl.carousel.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/jquery.nicescroll.min.js"></script>
+    <script src="/WEB_CLOTHES_PHP/js/main.js"></script>
 
 <!-- Alertify JS -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -92,6 +111,11 @@
                 } 
             ?>
         </script>
+
+
+
+
+</script>
 </body>
 
 </html>

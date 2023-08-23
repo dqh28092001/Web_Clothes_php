@@ -6,7 +6,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "web_clother";
+$dbname = "webclotherphp";
 
 // Create connection
 $con = mysqli_connect($host, $username, $password, $dbname);

@@ -1,64 +1,45 @@
 <?php 
 session_start();
     $page_title = "Cart"; 
-    include '../Functions/userfunctions.php';
+    // include ('../Functions/checkoutfunction.php');
     
-    include('../Functions/authenticate.php');
+    // include('../Functions/authenticate.php');
+    include('../Functions/userfunctions.php');
+    include('../Layout/Header/Header.php');
 
-    $cartItems = getCartItems();
+        $cartItems = getCartItems();
 
-    if (mysqli_num_rows($cartItems) == 0)
-    {
-        header('Location: ../../../index.php');
-    }
+        if (mysqli_num_rows($cartItems) == 0)
+        {
+            header('Location: ../../../index.php');
+        }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Font Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-    <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="../../css/form.css">
-    <link rel="stylesheet" type="text/css" href="../../css/custom.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!-- Alertify Js -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
-</head>
-<body>
-    
-<div class="py-3 bg-light">
-    <div class="container">
-        <h6>
-            <a class="text-dark" href="../index.php">
-                Home / 
-            </a>
-                Check Out
-        </h6>
+<div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="../index.php"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
+    <section class="checkout spad" style="padding-bottom: 0px!important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6 class="coupon__link"><span class="icon_tag_alt"></span> <a href="#">Have a coupon?</a> Click
+                    here to enter your code.</h6>
+                </div>
+            </div>
+           
+            </div>
+        </section>
 <div class="py-5">
   <div class="container">
     <div class="card">
@@ -97,7 +78,7 @@ session_start();
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="row align-items-center">
+                        <div class="row " style="    width: 34pc!important;">
                             <div class="col-md-2">
                                 <h6>Product</h6>
                             </div>
@@ -118,7 +99,7 @@ session_start();
                         ?>
                             <div class="mb-1 ">
                                 <div class="card product_data shadow-sm mb-3">
-                                    <div class="row align-items-center">
+                                    <div class="row align-items-center"  style="    width: 34pc!important;">
                                         <div class="col-md-2 p-3">
                                             <img src="../uploads/<?= $citem['image']; ?>" alt="Image" width="80px">
                                         </div>
@@ -154,11 +135,10 @@ session_start();
 </div>
 
 
-</body>
-</html>
+
 
 <!-- Replace "test" with your own sandbox Business account app client ID -->
-<script src="https://www.paypal.com/sdk/js?client-id=AWQIbg_TWdyf6mdJp0j1EAVZ6eXTHOqZ7keVPvx-C4PXEXGjF7J1D7nXOZCjk00AMC5Ym0b7O3qxtl7m&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AS8F6ANI0nteu1fq56-QqCXAY8oL30da6z6gfPLatHEqyfBL7ICZaKGNuBU22hPiLrWAr0ZyG66s18ew&currency=USD"></script>
   
 <script>
     
@@ -261,3 +241,8 @@ session_start();
       }
     }).render('#paypal-button-container');
   </script>
+
+
+<?php
+include ('../Layout/Footer/Footer.php')
+?>

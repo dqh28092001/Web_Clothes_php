@@ -7,6 +7,7 @@ Version: 1.0
 Created: Colorib
 ---------------------------------------------------------  */
 
+
 'use strict';
 
 (function ($) {

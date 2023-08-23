@@ -1,4 +1,5 @@
 <?php
+session_start();
     require '../Functions/userfunctions.php';
     include('../db/connect.php');
 
@@ -18,7 +19,7 @@
             if ($name == "" || $email == "" || $phone == "" || $pincode == "" || $address == "")
             {
                 $_SESSION['status'] = "All fields are mandatory";
-                header('Location: ../../../view/checkout.php');
+                header('Location:../view/my-orders.php');
                 exit(0);
             }
 
@@ -33,7 +34,7 @@
             {
                 $totalPrice += $citem['selling_price'] * $citem['prod_qty'];
             }
-            $tracking_no = "DVT".rand(1111,9999).substr($phone,2);
+            $tracking_no = "DQH".rand(1111,9999).substr($phone,2);
             $insert_query = "INSERT INTO orders (tracking_no, user_id, name, email, phone, address, pincode, total_price, payment_mode, payment_id) VALUE ('$tracking_no', '$userId', '$name', '$email', '$phone', '$address', '$pincode', '$totalPrice', '$payment_mode', '$payment_id')";
             $insert_query_run = mysqli_query($con, $insert_query);
             
@@ -67,7 +68,7 @@
 
                 if ($payment_mode == "COD") {
                     $_SESSION['status'] = "Order placed successfully";
-                    header('Location: ../../../view/my-orders.php');
+                    header('Location:../view/my-orders.php');
                     die();
                 }else{
                     echo 201;
@@ -76,7 +77,7 @@
         }
     }
     else{
-        header('Location: ../index.php');
+        header('Location: index.php');
     }
 
 ?>

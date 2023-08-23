@@ -22,4 +22,12 @@ function redirect($url,$message ){
     exit();
 }
 
+function getAllOders(){
+    // do biến $con kh dc xác định nên ta khai báo biến toàn cục vì v nó sẽ kh tìm kiếm biến $con
+    global $con; 
+    $query = "SELECT * FROM oders WHERE status = '0'";
+    return $query_run = mysqli_query($con , $query);
+}
+
+
 ?>

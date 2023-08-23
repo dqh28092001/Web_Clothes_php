@@ -1,15 +1,17 @@
 <?php 
-include('../config/dbcon.php');
-include('authcode.php');
+session_start();
+include('../db/connect.php');
+include('../Functions/authenticate.php');
+include('../Functions/userfunctions.php');
 
 if (isset($_SESSION['auth'])) {
 
-    if (isset($_POST['add_comment']))
+    if (isset($_POST['ct_cmt']))
     {
         $ct_cmt = $_POST['ct_cmt'];
         $user_id = $_SESSION['auth_user']['user_id'];
         $prod_id = $_POST['prod_id'];
-    
+
         $checkorder = "SELECT user_id, prod_id FROM orders INNER JOIN order_items ON orders.id = order_items.order_id WHERE user_id = '$user_id' AND order_items.prod_id = '$prod_id'";
         $checkorder_run = mysqli_query($con, $checkorder);
 
@@ -19,7 +21,6 @@ if (isset($_SESSION['auth'])) {
             $insert_cmt_run = mysqli_query($con, $insert_cmt);
 
             redirect("../index.php","Add comment successful");
-
         }else{
             redirect("../index.php","You need to purchase to comment");
         }
@@ -27,7 +28,8 @@ if (isset($_SESSION['auth'])) {
     }
 
 }else{
-    redirect("../index.php","Login to continue");
+    redirect("../index.php","Login to conterniu");
+
 }
 
 

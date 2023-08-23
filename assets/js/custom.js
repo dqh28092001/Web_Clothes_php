@@ -2,6 +2,7 @@ $(document).ready(function ()
 {
     $(document).on('click', '.increment-btn', function (e)
     { 
+
         e.preventDefault();
 
         var qty = $(this).closest('.product_data').find('.input-qty').val();
@@ -15,6 +16,8 @@ $(document).ready(function ()
         }
     });
 
+
+    
     $(document).on('click', '.decrement-btn', function (e)
     { 
         e.preventDefault();
@@ -30,15 +33,14 @@ $(document).ready(function ()
         }
     });
 
-    $(document).on('click', '.addToCartBtn', function (e) { 
+    $('.addToCartBtn').click(function (e) { 
         e.preventDefault();
         
         var qty = $(this).closest('.product_data').find('.input-qty').val();
         var prod_id = $(this).val();
-
         $.ajax({
             method: "POST",
-            url: "../Functions/handlecart.php",
+            url: "/WEB_CLOTHES_PHP/Functions/handlecart.php",
             data: {
                 "prod_id": prod_id,
                 "prod_qty": qty,
@@ -46,6 +48,8 @@ $(document).ready(function ()
             },
             success: function (response)
             {
+                
+                
                 if(response == 201)
                 {
                     alertify.success("Product added to cart");
@@ -53,7 +57,7 @@ $(document).ready(function ()
                 else if(response == "existing")
                 {
                     alertify.success("Product already in cart");
-                }
+                }               
                 else if(response == 401)
                 {
                     alertify.success("Login to continue");
@@ -73,7 +77,7 @@ $(document).ready(function ()
 
         $.ajax({
             method: "POST",
-            url: "../Functions/handlecart.php",
+            url: "/WEB_CLOTHES_PHP/Functions/handlecart.php",
             data: {
                 "prod_id": prod_id,
                 "prod_qty": qty,
@@ -91,7 +95,7 @@ $(document).ready(function ()
 
         $.ajax({
             method: "POST",
-            url: "../Functions/handlecart.php",
+            url: "/WEB_CLOTHES_PHP/Functions/handlecart.php",
             data: {
                 "cart_id": cart_id,
                 "scope": "delete"
