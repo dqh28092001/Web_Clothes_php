@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th7 26, 2023 lúc 06:54 AM
+-- Thời gian đã tạo: Th8 23, 2023 lúc 06:24 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.1.12
 
@@ -40,11 +40,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `prod_id`, `prod_qty`, `created_at`) VALUES
-(108, 1, 16, 3, '2023-07-24 04:08:41'),
-(110, 47, 13, 3, '2023-07-25 04:15:32'),
-(111, 47, 16, 3, '2023-07-25 06:05:21'),
-(112, 47, 11, 1, '2023-07-25 08:02:09'),
-(113, 47, 17, 4, '2023-07-25 08:19:28');
+(108, 1, 16, 8, '2023-07-24 04:08:41');
 
 -- --------------------------------------------------------
 
@@ -136,7 +132,8 @@ INSERT INTO `comment` (`id`, `prod_id`, `user_id`, `content`, `created_at`) VALU
 (45, 17, 1, 'as22', '2023-07-20 04:13:56'),
 (46, 16, 1, '222', '2023-07-20 04:14:12'),
 (47, 17, 1, 'asdasd', '2023-07-20 09:47:27'),
-(48, 17, 1, 'sdasd', '2023-07-21 02:24:51');
+(48, 17, 1, 'sdasd', '2023-07-21 02:24:51'),
+(49, 11, 47, 'asda', '2023-07-27 03:21:24');
 
 -- --------------------------------------------------------
 
@@ -169,7 +166,9 @@ INSERT INTO `orders` (`id`, `tracking_no`, `user_id`, `name`, `email`, `phone`, 
 (31, 'DQH4982sda', 1, 'Huy', 'huyhuydai059@gmail.com', 'dasda', 'sdasd', 123122, '2693', 'COD', '', 0, NULL, '2023-07-21 05:10:58'),
 (32, 'DQH5070das', 1, 'Đặng QUốc Huy', 'huyhuydai059@gmail.com', 'asdas', 'dasdd', 0, '1400', 'COD', '', 0, NULL, '2023-07-21 05:24:33'),
 (33, 'DQH8380', 1, 'Đặng QUốc Huy', 'huyhuydai059@gmail.com', 'á', 'sá', 123122, '598', 'COD', '', 0, NULL, '2023-07-24 04:03:23'),
-(34, 'DQH2763dfas', 45, 'sada', 'ngap2504@gmail.com', 'ádfas', 'sdasd', 123122, '700', 'COD', '', 0, NULL, '2023-07-24 09:10:22');
+(34, 'DQH2763dfas', 45, 'sada', 'ngap2504@gmail.com', 'ádfas', 'sdasd', 123122, '700', 'COD', '', 0, NULL, '2023-07-24 09:10:22'),
+(35, 'DQH7170dfas', 47, 'd', 'huyhuydai059@gmail.com', 'ádfas', 'sd', 0, '1848', 'COD', '', 0, NULL, '2023-07-27 03:21:01'),
+(36, 'DQH2380454102', 47, 'Đặng QUốc Huy', 'dqh28092001@gmail.com', '03454102', 'đâs', 123122, '5695', 'Paid by PayPal', '0PL09972ED622782M', 0, NULL, '2023-07-27 07:24:33');
 
 -- --------------------------------------------------------
 
@@ -217,7 +216,13 @@ INSERT INTO `order_items` (`id`, `order_id`, `prod_id`, `qty`, `price`, `creaed_
 (41, 31, 17, 4, 299, '2023-07-21 05:10:58'),
 (42, 32, 16, 2, 700, '2023-07-21 05:24:33'),
 (43, 33, 17, 2, 299, '2023-07-24 04:03:23'),
-(44, 34, 16, 1, 700, '2023-07-24 09:10:22');
+(44, 34, 16, 1, 700, '2023-07-24 09:10:22'),
+(45, 35, 11, 1, 199, '2023-07-27 03:21:01'),
+(46, 35, 14, 1, 499, '2023-07-27 03:21:01'),
+(47, 35, 16, 1, 700, '2023-07-27 03:21:01'),
+(48, 35, 21, 3, 150, '2023-07-27 03:21:01'),
+(49, 36, 12, 5, 999, '2023-07-27 07:24:33'),
+(50, 36, 16, 1, 700, '2023-07-27 07:24:33');
 
 -- --------------------------------------------------------
 
@@ -238,7 +243,7 @@ CREATE TABLE `products` (
   `qty` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `trending` tinyint(4) NOT NULL,
-  -- `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Active | 0=Inactive',
+  `locgiasp` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1=Active | 0=Inactive',
   `meta_title` varchar(191) NOT NULL,
   `meta_keywords` mediumtext NOT NULL,
   `meta_description` mediumtext NOT NULL,
@@ -249,19 +254,19 @@ CREATE TABLE `products` (
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `small_description`, `description`, `original_price`, `selling_price`, `image`, `qty`, `status`, `trending`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`) VALUES
-(11, 11, 'Áo Caro ', 'Áo Caro ', 'Áo Caro ', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 2000, 1999, '1689565358.jpg', 50, 1, 1, 'Áo Caro ', 'Áo Caro ', 'Áo Caro ', '2022-12-19 09:03:14'),
-(12, 11, 'Phong cách nam', 'iPhone-13-Pro-Max-128GB', 'Phong cách nam', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1000, 999, '1689565807.jpg', 41, 1, 1, 'Phong cách nam', 'Phong cách nam', 'Phong cách nam', '2022-12-19 09:03:56'),
-(13, 11, 'Váy ĐI Hội', 'Váy ĐI Hội', 'Váy ĐI Hội', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1500, 1499, '1689565870.jpg', 49, 1, 1, 'Váy ĐI Hội', 'Váy ĐI Hội', 'Váy ĐI Hội', '2022-12-27 17:27:30'),
-(14, 13, 'Sơ mi tay dài', 'Sơ mi tay dài', 'Sơ mi tay dài', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 500, 499, '1689565963.jpg', 33, 1, 1, 'Sơ mi tay dài', 'Sơ mi tay dài', 'Sơ mi tay dài', '2022-12-27 17:28:31'),
-(15, 16, 'Sọc Caro', 'Sọc Caro', 'Sọc Caro', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 600, 599, '1689565988.jpg', 45, 0, 1, 'Sọc Caro', 'Sọc Caro', 'Sọc Caro', '2022-12-27 17:30:29'),
-(16, 12, 'Hoa tay dài', 'Hoa tay dài', 'Hoa tay dài', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 800, 700, '1689566023.jpg', 4, 0, 1, 'Hoa tay dài', 'Hoa tay dài', 'Hoa tay dài', '2022-12-27 17:31:24'),
-(17, 13, 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 300, 299, '1689566055.jpg', 24, 0, 1, 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Áo Ba Lỗ', '2022-12-27 17:33:26'),
-(18, 15, 'Áo Kiểu', 'Áo Kiểu', 'Áo Kiểu', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1000, 999, '1689566083.jpg', 43, 0, 1, 'Áo Kiểu', 'Áo Kiểu', 'Áo Kiểu', '2022-12-27 17:35:02'),
-(21, 11, 'Áo Thời Trang', 'pham-thi-nga', 'Áo Thời Trang', 'Áo Thời Trang', 1000, 15000, '1690270232.jpg', 32, 0, 1, 'Áo Thời Trang', 'Áo Thời Trang', 'Áo Thời Trang', '2023-07-25 07:30:32'),
-(22, 11, 'Váy', 'pham-thi-nga', 'Váy', 'Váy', 600, 15000, '1690270265.jpg', 32, 0, 1, 'Váy', 'VáyVáyVáyVáy', 'VáyVáy', '2023-07-25 07:31:05'),
-(23, 14, 'Áo Vip', 'pham-thi-nga', 'Áo Vip', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 299, 15000, '1690270850.jpg', 32, 0, 1, 'Áo Vip', 'Áo Vip', 'Áo Vip', '2023-07-25 07:40:50'),
-(24, 17, 'Áo Khoác', 'mobile', 'Áo Vip', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1799, 15000, '1690270884.jpg', 34, 0, 1, 'Áo Vip', 'Áo Vip', 'Áo Vip', '2023-07-25 07:41:24');
+INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `small_description`, `description`, `original_price`, `selling_price`, `image`, `qty`, `status`, `trending`, `locgiasp`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`) VALUES
+(11, 11, 'Áo Caro ', 'Áo Caro ', 'Áo Caro ', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 2000, 199, '1689565358.jpg', 49, 0, 1, 1, 'Áo Caro ', 'Áo Caro ', 'Áo Caro ', '2022-12-19 09:03:14'),
+(12, 11, 'Phong cách nam', 'iPhone-13-Pro-Max-128GB', 'Phong cách nam', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1000, 999, '1689565807.jpg', 36, 0, 1, 1, 'Phong cách nam', 'Phong cách nam', 'Phong cách nam', '2022-12-19 09:03:56'),
+(13, 11, 'Váy ĐI Hội', 'Váy ĐI Hội', 'Váy ĐI Hội', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1500, 499, '1689565870.jpg', 49, 1, 1, 1, 'Váy ĐI Hội', 'Váy ĐI Hội', 'Váy ĐI Hội', '2022-12-27 17:27:30'),
+(14, 13, 'Sơ mi tay dài', 'Sơ mi tay dài', 'Sơ mi tay dài', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 500, 499, '1689565963.jpg', 32, 0, 1, 1, 'Sơ mi tay dài', 'Sơ mi tay dài', 'Sơ mi tay dài', '2022-12-27 17:28:31'),
+(15, 16, 'Sọc Caro', 'Sọc Caro', 'Sọc Caro', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 600, 599, '1689565988.jpg', 45, 0, 1, 1, 'Sọc Caro', 'Sọc Caro', 'Sọc Caro', '2022-12-27 17:30:29'),
+(16, 12, 'Hoa tay dài', 'Hoa tay dài', 'Hoa tay dài', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 800, 700, '1689566023.jpg', 2, 0, 1, 1, 'Hoa tay dài', 'Hoa tay dài', 'Hoa tay dài', '2022-12-27 17:31:24'),
+(17, 13, 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 300, 299, '1689566055.jpg', 24, 0, 1, 1, 'Áo Ba Lỗ', 'Áo Ba Lỗ', 'Áo Ba Lỗ', '2022-12-27 17:33:26'),
+(18, 15, 'Áo Kiểu', 'Áo Kiểu', 'Áo Kiểu', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1000, 999, '1689566083.jpg', 43, 0, 1, 1, 'Áo Kiểu', 'Áo Kiểu', 'Áo Kiểu', '2022-12-27 17:35:02'),
+(21, 11, 'Áo Thời Trang', 'pham-thi-nga', 'Áo Thời Trang', 'Áo Thời Trang', 1000, 150, '1690362600.jpg', 29, 0, 1, 1, 'Áo Thời Trang', 'Áo Thời Trang', 'Áo Thời Trang', '2023-07-25 07:30:32'),
+(24, 17, 'Áo Khoác', 'mobile', 'Áo Vip', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 1799, 150, '1690362629.jpg', 34, 0, 1, 1, 'Áo Vip', 'Áo Vip', 'Áo Vip', '2023-07-25 07:41:24'),
+(25, 14, 'Đầm Xòe', 'Đầm Xòe', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 700, 400, '1690362512.jpg', 32, 0, 1, 1, 'Đầm Xòe', 'Đầm Xòe', 'Đầm Xòe', '2023-07-26 09:08:32'),
+(26, 13, 'Váy Max', 'Váy Max', 'Cuối cùng thì chiếc Áo cũng đã chính thức lộ diện tại sự kiện ra mắt thường niên vào ngày 08/09 đến từ nhà Áo, kết thúc bao lời đồn đoán bằng một bộ thông số cực kỳ ấn tượng cùng vẻ ngoài đẹp mắt sang trọng. Từ ngày 14/10/2022 người dùng đã có thể mua sắm các sản phẩm với đầy đủ phiên bản', 'Váy Max', 700, 200, '1690362550.jpg', 31, 0, 1, 1, 'Váy Max', 'Váy Max', 'Váy Max', '2023-07-26 09:09:10');
 
 -- --------------------------------------------------------
 
@@ -345,7 +350,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -357,25 +362,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
