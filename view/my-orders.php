@@ -4,6 +4,7 @@
     $page_title = "My Order"; 
     include ('../Functions/userfunctions.php');
     include('../Functions/authenticate.php');
+    include('../includes/header.php');
 
 ?>
 <!DOCTYPE html>

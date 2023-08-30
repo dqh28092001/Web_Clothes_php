@@ -20,15 +20,15 @@ if (isset($_SESSION['auth'])) {
             $insert_cmt = "INSERT INTO comment (prod_id, user_id, content) VALUES ('$prod_id', '$user_id', '$ct_cmt')";
             $insert_cmt_run = mysqli_query($con, $insert_cmt);
 
-            redirect("../index.php","Add comment successful");
+            redirect("../index.php","Thêm bình luận thành công");
         }else{
-            redirect("../index.php","You need to purchase to comment");
+            redirect("../index.php","Bạn cần mua sản phẩm để bình luận");
         }
 
     }
 
 }else{
-    redirect("../index.php","Login to conterniu");
+    redirect("../index.php","Đăng nhập vào liên kết");
 
 }
 

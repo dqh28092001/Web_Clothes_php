@@ -1,7 +1,8 @@
 <?php 
+session_start();
 $page_title = "Products"; 
 include('../Functions/userfunctions.php');
-include('../Layout/Header/Header.php');
+include('../includes/header.php');
 
 ?>
 
@@ -92,7 +93,7 @@ include('../Layout/Header/Header.php');
 </html>
 
 <?php
-include ('../Layout/Footer/Footer.php')
+include ('../includes/footer.php')
 ?>
 
   

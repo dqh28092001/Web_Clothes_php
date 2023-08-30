@@ -28,14 +28,27 @@ if (isset($_POST['register_btn'])) {
     $confirm_password = mysqli_real_escape_string($con, md5($_POST['cpassword']));
     $code = mysqli_real_escape_string($con, md5(rand()));
 
+    $image = $_FILES['image']['name'];
+    $image_size = $_FILES['image']['size'];
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_folder = 'uploaded_img/' . $image;
+
+    
+
     if (mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE email='{$email}'")) > 0) {
+        if ($image_size > 2000000) {
+            $message[] = 'image size is too large!';
+        }
         $msg = "<div class='alert alert-danger'>{$email} - This email address has been already exists.</div>";
     } else {
         if ($password === $confirm_password) {
-            $sql = "INSERT INTO users (name, email,phone, password, code) VALUES ('{$name}', '{$email}','{$phone}', '{$password}', '{$code}')";
+            $sql = "INSERT INTO users (name, email,phone, password, code,image) VALUES ('{$name}', '{$email}','{$phone}', '{$password}', '{$code}', '{$image}')";
             $result = mysqli_query($con, $sql);
 
             if ($result) {
+                move_uploaded_file($image_tmp_name, $image_folder);
+                
+
                 echo "<div style='display: none;'>";
                 //Create an instance; passing `true` enables exceptions
                 $mail = new PHPMailer(true);
@@ -58,20 +71,20 @@ if (isset($_POST['register_btn'])) {
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
                     $mail->Subject = 'no reply';
-                    $mail->Body    = 'Here is the verification link <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/Functions/verify-email.php?token=' . $code . '">Click</a></b>';
+                    $mail->Body    = 'Liên kết xác minh tài khoản của bạn  <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/Functions/verify-email.php?token=' . $code . '">Click</a></b>';
 
                     $mail->send();
-                    echo 'Message has been sent';
+                    echo 'Tin nhắn đã được gửi';
                 } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    echo "Không thể gửi tin nhắn. Lỗi gửi thư: {$mail->ErrorInfo}";
                 }
                 echo "</div>";
-                redirect(" ../Authentication/Login/Login.php", "Registered Successfully");
+                redirect(" ../Authentication/Login/Login.php", "Đăng ký thành công");
             } else {
-                redirect(" ../Authentication/Register/Register.php", "Something went wrong");
+                redirect(" ../Authentication/Register/Register.php", "Đã xảy ra lỗi");
             }
         } else {
-            redirect(" ../Authentication/Register/Register.php", "Password and Confirm Password do not match");
+            redirect(" ../Authentication/Register/Register.php", "Mật khẩu và Xác nhận mật khẩu không khớp");
         }
     }
 }
@@ -97,9 +110,9 @@ function send_password_reset($get_name, $get_email, $token)
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Body    = 'Here is the verification link <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/view/password-change.php?token=' . $token .'&email='.$get_email.'">Click</a></b>';
+    $mail->Body    = 'Liên kết Cập nhật mật khẩu <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/view/password-change.php?token=' . $token . '&email=' . $get_email . '">Click</a></b>';
     $mail->send();
-    echo 'Message has been sent';
+    echo 'Tin nhắn đã được gửi';
 }
 
 
@@ -131,17 +144,15 @@ if (isset($_POST['reset_pass_btn'])) {
 }
 
 
-if (isset($_POST['password_update_btn']))
-{
-    $email = mysqli_real_escape_string($con, $_POST['email']);// Hàm real_escape_string() / mysqli_real_escape_string() thoát các ký tự đặc biệt trong chuỗi để sử dụng 
+if (isset($_POST['password_update_btn'])) {
+    $email = mysqli_real_escape_string($con, $_POST['email']); // Hàm real_escape_string() / mysqli_real_escape_string() thoát các ký tự đặc biệt trong chuỗi để sử dụng 
     $new_password = mysqli_real_escape_string($con, md5($_POST['new_password']));
     $cpassword = mysqli_real_escape_string($con, md5($_POST['cpassword']));
 
     $token = mysqli_real_escape_string($con, $_POST['password_token']);
 
-    if (!empty($token))
-    {
-        if (!empty($email) && !empty($new_password) && !empty($cpassword)) 
+    if (!empty($token)) {
+        if (!empty($email) && !empty($new_password) && !empty($cpassword))
         //  `!empty` chỉ kiểm tra xem biến có giá trị hay không
         {
             //Kiểm tra token có khớp ko
@@ -149,42 +160,34 @@ if (isset($_POST['password_update_btn']))
             $check_token_run = mysqli_query($con, $check_token); //thực thi các truy vấn SQL
 
 
-            if(mysqli_num_rows($check_token_run) > 0) //mysqli_num_rows() trả về số lượng hàng trong một tập kết quả.
+            if (mysqli_num_rows($check_token_run) > 0) //mysqli_num_rows() trả về số lượng hàng trong một tập kết quả.
             {
                 if ($new_password === $cpassword) {
 
                     $update_password = "UPDATE users SET password='$new_password' WHERE code='$token' LIMIT 1";
                     $update_password_run = mysqli_query($con, $update_password);
-                    
+
                     if ($update_password_run) {
 
                         $new_token = md5(rand());
                         $update_new_token = "UPDATE users SET code='$new_token' WHERE code='$token' LIMIT 1";
                         $update_new_token_run = mysqli_query($con, $update_new_token);
 
-                        redirect("../Authentication/Login/Login.php","Đã cập nhật mật khẩu thành công.");
-
-                    }else
-                    {
-                        redirect("../view/password-change.php?token=$token&email=$email","Đã xảy ra sự cố khi cập nhật mật khẩu.");
+                        redirect("../Authentication/Login/Login.php", "Đã cập nhật mật khẩu thành công.");
+                    } else {
+                        redirect("../view/password-change.php?token=$token&email=$email", "Đã xảy ra sự cố khi cập nhật mật khẩu.");
                     }
-                } else
-                {
-                    redirect("../view/password-change.php?token=$token&email=$email","Mật khẩu và Xác nhận mật khẩu không khớp");
+                } else {
+                    redirect("../view/password-change.php?token=$token&email=$email", "Mật khẩu và Xác nhận mật khẩu không khớp");
                 }
-                
-            
-            } else
-            {
-                redirect("../view/password-change.php?token=$token&email=$email","Token không hợp lệ");
+            } else {
+                redirect("../view/password-change.php?token=$token&email=$email", "Token không hợp lệ");
             }
-        }else
-        {
-            redirect("../view/password-change.php?token=$token&email=$email","Tất cả các lĩnh vực là bắt buộc");
+        } else {
+            redirect("../view/password-change.php?token=$token&email=$email", "Tất cả các lĩnh vực là bắt buộc");
         }
-    }else
-    {
-        redirect("../view/password-change.php?token=$token&email=$get_email","Không có mã thông báo");
+    } else {
+        redirect("../view/password-change.php?token=$token&email=$get_email", "Không có mã thông báo");
     }
 }
 
@@ -199,6 +202,15 @@ else if (isset($_POST['login_btn'])) {
 
     $login_query = "SELECT * FROM users WHERE email='$email' AND password='$password' ";
     $login_query_run = mysqli_query($con, $login_query);
+
+
+    // if (mysqli_num_rows($login_query_run) > 0) {
+    //     $row = mysqli_fetch_assoc($login_query_run);
+    //     $_SESSION['user_id'] = $row['id'];
+    //     header('location:../../../home.php');
+    // } else {
+    //     $message[] = 'incorrect email or password!';
+    // }
 
     if (mysqli_num_rows($login_query_run) > 0) {
 
@@ -220,12 +232,12 @@ else if (isset($_POST['login_btn'])) {
         // redirect("../index.php","Welcome To Dashboard");
         $_SESSION['role_as'] = $role_as;
         if ($role_as == 1) {
-            redirect("../Admin/index.php", "Welcome To Dashboard");
+            redirect("../Admin/index.php", "Chào mừng đến với Trang tổng quan");
         } else {
-            redirect("../index.php", "Đăng nhập thành công");
+            redirect("../index.php", "Shopping");
         }
     } else {
 
-        redirect("../Authentication/Login/Login.php", "Thông tin không hợp lệ");
+        redirect("../Authentication/Login/Login.php", "Mật khẩu của bạn không đúng");
     }
 }

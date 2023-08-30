@@ -2,12 +2,7 @@
 session_start();
 $page_title = "Products"; 
 include('../Functions/userfunctions.php');
-include('../Layout/Header/Header.php');
-
-?>
-
-    <?php
-    
+include('../includes/header.php');
 if (isset($_GET['product']))
 {
     $product_slug = $_GET['product'];
@@ -21,8 +16,8 @@ if (isset($_GET['product']))
             <div class="py-3 bg-light">
                 <div class="container">
                     <h6 class="text-dark">
-                        <a href="../index.php" class="text-dark">Home /</a>
-                        <!-- <a href="../view/categories.php" class="text-dark">Collections / </a> -->
+                        <a href="categories.php" class="text-dark">Home /</a>
+                        <a href="categories.php" class="text-dark">Collections / </a>
                         <?= $product['name']; ?></h6>
                 </div>
             </div>
@@ -52,7 +47,7 @@ if (isset($_GET['product']))
                             <div class="col-md-4">
                                 <div class="input-group mb-3" style="width: 110px;">
                                     <button class="input-group-text decrement-btn">-</button>
-                                        <input type="text" class="form-control text-center input-qty bg-white" value="1" >
+                                        <input type="text" class="form-control text-center input-qty bg-white" value="1" disabled>
                                     <button class="input-group-text increment-btn">+</button>
                                 </div>
                             </div>
@@ -128,33 +123,5 @@ else
     redirect("../index.php","Something went wrong");
 }
 
-    ?>
-<script src="/WEB_CLOTHES_PHP/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/WEB_CLOTHES_PHP/assets/js/jquery-3.6.0.min.js"></script>
-<script src="/WEB_CLOTHES_PHP/assets/js/custom.js"></script>
-<script src="/WEB_CLOTHES_PHP/assets/js/owl.carousel.min.js"></script>
 
-
-<!-- Alertify JS -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-        <script>
-          alertify.set('notifier','position', 'top-right');
-            <?php 
-                if(isset($_SESSION['status']))
-                {
-            ?>
-                    alertify.success('<?=$_SESSION['status']?>');
-            <?php
-                    unset($_SESSION['status']);        
-                } 
-            ?>
-        </script>
-</body>
-
-</html>
-
-
-
-<?php
-include ('../Layout/Footer/Footer.php')
-?>
+include('../includes/footer.php'); ?>

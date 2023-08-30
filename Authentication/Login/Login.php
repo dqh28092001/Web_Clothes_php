@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION['auth'])){
-	$_SESSION['message'] = "You are already logged in";
+	$_SESSION['message'] = "Bạn đã đăng nhập";
 	header('Location: ../../index.php');
     exit();
 
@@ -49,7 +49,7 @@ if(isset($_SESSION['auth'])){
 								<h2 class="heading-section">Login</h2>
 							</div>
 						</div>
-						<form action="../../Functions/Authcode.php" method="POST" class="signin-form">
+						<form action="../../Functions/Authcode.php" method="POST" class="signin-form" enctype="multipart/form-data">
 							<div class="form-group">
 								<input type="email" name="email" class="form-control" placeholder="Email" required>
 							</div>

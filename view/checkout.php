@@ -1,11 +1,9 @@
 <?php 
 session_start();
     $page_title = "Cart"; 
-    // include ('../Functions/checkoutfunction.php');
-    
-    // include('../Functions/authenticate.php');
+
     include('../Functions/userfunctions.php');
-    include('../Layout/Header/Header.php');
+    include('../includes/header.php');
 
         $cartItems = getCartItems();
 
@@ -244,5 +242,5 @@ session_start();
 
 
 <?php
-include ('../Layout/Footer/Footer.php')
+include ('../includes/footer.php')
 ?>

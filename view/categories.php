@@ -1,7 +1,10 @@
 <?php
+session_start();
 $page_title = "Category";
-include("./Functions/categoriesfuntion.php");
-// include('../Layout/Header/Header.php');
+include("../Functions/categoriesfuntion.php");
+include('../includes/header.php');
+
+
 
 ?>
 
@@ -34,7 +37,7 @@ include("./Functions/categoriesfuntion.php");
                                     <a href="/WEB_CLOTHES_PHP/view/products.php?category=<?= $item['slug']; ?>">
                                         <div class="card shadow">
                                             <div class="card-body">
-                                                <img src="./uploads/<?= $item['image']; ?>" alt="Category Image" class="w-100">
+                                                <img src="../uploads/<?= $item['image']; ?>" alt="Category Image" class="w-100">
                                                 <h4 class="text-center"><?= $item['name']; ?></h4>
                                             </div>
                                         </div>
@@ -51,8 +54,7 @@ include("./Functions/categoriesfuntion.php");
             </div>
         </div>
     </div>
-
-    
+    <?php include('../includes/footer.php'); ?>
 
 
 

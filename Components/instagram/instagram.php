@@ -75,5 +75,5 @@
         <script src="/WEB_CLOTHES_PHP/js/jquery.slicknav.js"></script>
         <script src="/WEB_CLOTHES_PHP/js/owl.carousel.min.js"></script>
         <script src="/WEB_CLOTHES_PHP/js/jquery.nicescroll.min.js"></script>
-        <script src="/WEB_CLOTHES_PHP/js/main.js"></script>
+        <!-- <script src="/WEB_CLOTHES_PHP/js/main.js"></script> -->
   

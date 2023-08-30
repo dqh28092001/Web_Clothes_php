@@ -48,23 +48,21 @@ $(document).ready(function ()
             },
             success: function (response)
             {
-                
-                
                 if(response == 201)
                 {
-                    alertify.success("Product added to cart");
+                    alertify.success("Sản phẩm đã được thêm vào giỏ hàng");
                 }
                 else if(response == "existing")
                 {
-                    alertify.success("Product already in cart");
+                    alertify.success("Sản phẩm đã có trong giỏ hàng");
                 }               
                 else if(response == 401)
                 {
-                    alertify.success("Login to continue");
+                    alertify.success("Đăng nhập để tiếp tục");
                 }
                 else if(response == 500)
                 {
-                    alertify.success("Something went wrong");
+                    alertify.success("Đã xảy ra lỗi");
                 }
             }
         });

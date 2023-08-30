@@ -2,6 +2,7 @@
 session_start();
     $page_title = "View Order"; 
     include ('../Functions/userfunctions.php');
+    include ('../includes/header.php');
     
     include('../Functions/authenticate.php');
 

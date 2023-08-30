@@ -67,7 +67,7 @@ session_start();
                 $delete_run = mysqli_query($con, $delete);
 
                 if ($payment_mode == "COD") {
-                    $_SESSION['status'] = "Order placed successfully";
+                    $_SESSION['status'] = "Đơn hàng được đặt thành công";
                     header('Location:../view/my-orders.php');
                     die();
                 }else{

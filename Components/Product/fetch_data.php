@@ -5,9 +5,6 @@ include('../../Functions/locgiasp.php');
 
 ?>
 
-<!-- <?php
-echo "ádfasfasdf";
-?> -->
 
 <?php
 if(isset($_POST['min_price']) && isset($_POST['max_price'])) {
@@ -15,15 +12,12 @@ if(isset($_POST['min_price']) && isset($_POST['max_price'])) {
     $min_price = $_POST['min_price'];
     $max_price = $_POST['max_price'];
 
-    $query = "SELECT * FROM products WHERE locgiasp = '1' AND selling_price BETWEEN '$min_price' 
-    AND '$max_price' ";
-    
-   
+    $query = "SELECT * FROM products WHERE locgiasp = '1' AND selling_price BETWEEN '$min_price' AND '$max_price' ";
     
     $r = mysqli_query($con, $query);
     $count = mysqli_num_rows($r);
     
-    print_r($count) ;
+  
     if ($count == 0) {
         echo "Sorry,No data found";
     }
@@ -48,39 +42,40 @@ if(isset($_POST['min_price']) && isset($_POST['max_price'])) {
 
       
         ?>
-                <div id="content" class="col-md-3 mb-2">
-                    
-                    <a href="view/product-view.php?product=<?php echo $slug ?>" >
-                        <div class="card" style=" width: 14pc;    margin-left: 15pc;" >
-                            <div class="card-body mt-2">
-                                <img src="./uploads/<?php echo $image ?>" alt="Product Image" class="w-100">
-                                <h6 class="text-center mt-2"><?php echo $name ?></h6>
-                                <h6 style="margin-left: 3pc;display:flex" class="cart__price">Price : $<?php echo $selling_price  ?></p>
-                                </h6>
+                <div class="card" style="border-radius: 20px;
+                                                width: 16pc;
+                                                height: 26pc;
+                                                margin-top: 4pc;
+                                                margin-left: 10pc;">
 
-                            </div>
-                        </div>
-                    </a>
-                </div>
+<a href="/WEB_CLOTHES_PHP/view/product-view.php?product=<?php echo $slug ?>" >
+                                                <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light" style="width: 16pc;
+    height: 21pc;
+    margin-left: -12px;">
+                                                    <img src="/WEB_CLOTHES_PHP/uploads/<?php echo $image ?>" class="w-100" style="    height: 19pc;border-top-left-radius: 20px;border-top-right-radius: 20px;" />
+                                                    <a href="/WEB_CLOTHES_PHP/view/product-view.php?product=<?php echo $slug ?>" >
+
+                                                        <div class="hover-overlay">
+                                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="card-body">
+                                                 
+                                                    <a href="/WEB_CLOTHES_PHP/view/product-view.php?product=<?php echo $slug ?>" class="text-reset">
+                                                        <p style="font-weight: 700;font-size: 20px;;text-align:center"><?php echo $name ?></p>
+                                                    </a>
+                                                    <h6 class="mb-3" style="font-size: 16px;text-align:center">
+                                                        <s>$<?php echo $original_price ?></s><strong class="ms-2 text-danger">$<?php echo $selling_price  ?></strong>
+                                                    </h6>
+                                                </div>
+                                            </a>
+                                        </div>
                 
        <?php } ?>
 
     </div>
-    <nav aria-label="Page navigation example">
-                            <ul class="pagination float-end">
-                                <li class="page-item"><a class="page-link" href="/Web_Clothes_php/index.php">Previous</a></li>
-                                <?php
-                                $products = getAll('products');
-                                $products_count = mysqli_num_rows($products);
-                                $products_button = ceil($products_count / 8);
-                                $i = 1;
-                                for ($i; $i <= $products_button; $i++) {
-                                    echo '<li class="page-item"><a class="page-link" href="index.php?page=' . $i . '">' . $i . '</a></li>';
-                                }
-                                ?>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
+
 <?php
 }
 ?> 

@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION['auth'])) 
 {
-    redirect("login.php", 'Login to continue');
+    redirect("/WEB_CLOTHES_PHP/Authentication/Login/login.php", 'Đăng nhập để tiếp tục');
     
 }
 

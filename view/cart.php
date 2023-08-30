@@ -1,7 +1,11 @@
 <?php
+session_start();
+
 $page_title = "Cart";
-include('./Functions/cartfunction.php');
-// include('../functions/authenticate.php');
+include('../Functions/cartfunction.php');
+include('../includes/header.php');
+// include('../Functions/authenticate.php');
+
 ?>
 
 <style>
@@ -82,7 +86,7 @@ if (isset($_POST['capnhatprod_qty'])) {
                                                 <!-- <td class="invert"><?php echo $i ?></td> -->
 
                                                 <td class="cart__product__item">
-                                                    <img src="./uploads/<?= $citem['image']; ?>" alt="" width="100px">
+                                                    <img src="../uploads/<?= $citem['image']; ?>" alt="" width="100px">
                                                     <div class="cart__product__item__title">
                                                         <h6>Chain bucket bag</h6>
                                                         <div class="rating">
@@ -142,7 +146,8 @@ if (isset($_POST['capnhatprod_qty'])) {
                                 <!-- <li>Subtotal <span>$ 750.0</span></li> -->
                                 <li>Total <span><?= $total ?>.00 $</span></li>
                             </ul>
-                            <a href="/WEB_CLOTHES_PHP/view/checkout.php" class="btn primary-btn">Proceed to checkout</a>
+                            <a href="/WEB_CLOTHES_PHP/view/checkout.php" class="btn primary-btn" style="background-color: red;
+    color: white;">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
@@ -162,4 +167,5 @@ if (isset($_POST['capnhatprod_qty'])) {
 
 </section>
 
-<!-- Shop Cart Section End -->
+
+<?php include('../includes/footer.php'); ?>

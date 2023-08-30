@@ -8,6 +8,8 @@ if(isset($_SESSION['auth'])){
 }
 
 ?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -54,7 +56,7 @@ if(isset($_SESSION['auth'])){
                             </div>
                         </div>
 
-                        <form action="../../Functions/Authcode.php" method="POST" class="signin-form">
+                        <form action="../../Functions/Authcode.php" method="POST" class="signin-form" enctype="multipart/form-data"> 
                             <div class="form-group">
                                 <input type="text" name="name" class="form-control" placeholder="Username" required>
                             </div>
@@ -73,6 +75,10 @@ if(isset($_SESSION['auth'])){
                                 <input id="password-field" type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required>
                                 <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->
                             </div>
+                            <div class="form-group">
+                            <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
+                            </div>
+                            
                             <div class="form-group">
                                 <button type="submit" name="register_btn" class="form-control btn btn-primary submit px-3">Sign In</button>
                             </div>

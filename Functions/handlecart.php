@@ -23,8 +23,7 @@ if (isset($_SESSION['auth']))
                 if (mysqli_num_rows($chk_existing_cart_run) > 0)
                 {
                     echo "existing";
-                }else
-                {
+                }else{
                     $insert_query = "INSERT INTO carts (user_id, prod_id, prod_qty) VALUE ('$user_id', '$prod_id', '$prod_qty')";
                     $insert_query_run = mysqli_query($con, $insert_query);
     
@@ -83,11 +82,11 @@ if (isset($_SESSION['auth']))
                         echo 200;
                     }else
                     {
-                        echo "something went wrong";
+                        echo "Đã xảy ra sự cố";
                     }
                 }else
                 {
-                    echo "something went wrong";
+                    echo "Đã xảy ra sự cố";
                 }
             break;
 
