@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th8 30, 2023 lúc 09:00 AM
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.1.12
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th9 04, 2023 lúc 04:37 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -301,15 +301,16 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `small_description`
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(100) NOT NULL,
   `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(191) DEFAULT NULL,
   `code` text NOT NULL,
+  `verificationcodes` varchar(50) NOT NULL,
   `role_as` tinyint(4) NOT NULL DEFAULT 0,
   `verify_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '0=no,1=yes',
+  `vertified` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -317,9 +318,9 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`, `phone`, `address`, `code`, `role_as`, `verify_status`, `created_at`) VALUES
-(40, 'Đặng QUốc Huy', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'z3961960420136_5d5df1ef1f9b6696af3288bdb11ca530.jpg', '03454102', NULL, '061df49d20c90c2047803ab2a119d4ae', 1, 1, '2023-07-24 08:13:07'),
-(81, 'Đặng Quốc Huy', 'dqh28092001@gmail.com', '202cb962ac59075b964b07152d234b70', '122118028_809181356320874_5150283743324285879_n.jpg', '0334630884', NULL, 'b745d36a7c5358522997daa7e1527f89', 0, 1, '2023-08-30 04:08:59');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `image`, `phone`, `code`, `verificationcodes`, `role_as`, `verify_status`, `vertified`, `created_at`) VALUES
+(40, 'Đặng QUốc Huy', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'z3961960420136_5d5df1ef1f9b6696af3288bdb11ca530.jpg', '03454102', '061df49d20c90c2047803ab2a119d4ae', '', 1, 1, 0, '2023-07-24 08:13:07'),
+(106, 'huydai059', 'dqh28092001@gmail.com', '$2y$10$r9GXtpIjTPQFl0Gnmsv4fuxPntS1R5KhIPwXuIVM1GR4YtFNVz.o.', '', '1231231323', 'cb8b2dc08838bf1d3f5b74921200717e', '248904', 0, 0, 0, '2023-09-03 14:35:12');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -411,7 +412,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

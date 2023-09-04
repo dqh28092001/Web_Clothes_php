@@ -134,7 +134,7 @@ if (isset($_GET['logout'])) {
                       
                       ?>
 
-                      <h3 style="font-size: 20px;"><?php echo $fetch['name']; ?></h3>
+                      <h3 style="font-size: 20px;"><?php echo $fetch['username']; ?></h3>
 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

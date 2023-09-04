@@ -4,6 +4,8 @@ session_start();
 include('../db/connect.php');
 include('../Functions/Myfunctions.php');
 
+
+
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -20,34 +22,31 @@ require '../vendor/autoload.php';
 
 $msg = "";
 
+
 if (isset($_POST['register_btn'])) {
-    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $username = mysqli_real_escape_string($con, $_POST['username']);
     $phone = mysqli_real_escape_string($con, $_POST['phone']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, md5($_POST['password']));
     $confirm_password = mysqli_real_escape_string($con, md5($_POST['cpassword']));
     $code = mysqli_real_escape_string($con, md5(rand()));
 
-    $image = $_FILES['image']['name'];
-    $image_size = $_FILES['image']['size'];
-    $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = 'uploaded_img/' . $image;
+    // $image = $_FILES['image']['name'];
+    // $image_size = $_FILES['image']['size'];
+    // $image_tmp_name = $_FILES['image']['tmp_name'];
+    // $image_folder = 'uploaded_img/' . $image;
 
     
 
     if (mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE email='{$email}'")) > 0) {
-        if ($image_size > 2000000) {
-            $message[] = 'image size is too large!';
-        }
-        $msg = "<div class='alert alert-danger'>{$email} - This email address has been already exists.</div>";
-    } else {
-        if ($password === $confirm_password) {
-            $sql = "INSERT INTO users (name, email,phone, password, code,image) VALUES ('{$name}', '{$email}','{$phone}', '{$password}', '{$code}', '{$image}')";
-            $result = mysqli_query($con, $sql);
+        // if ($image_size > 2000000) {
+        //     $message[] = 'image size is too large!';
+        // }
+        redirect(" ../Authentication/Register/Register.php", "Email đã tồn tại");
 
-            if ($result) {
-                move_uploaded_file($image_tmp_name, $image_folder);
-                
+    } elseif ($password === $confirm_password) {
+            $sql = "INSERT INTO users (username, email,phone, password, code,) VALUES ('{$username}', '{$email}','{$phone}', '{$password}', '{$code}')";
+            $result = mysqli_query($con, $sql);
 
                 echo "<div style='display: none;'>";
                 //Create an instance; passing `true` enables exceptions
@@ -65,29 +64,42 @@ if (isset($_POST['register_btn'])) {
                     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                     //Recipients
-                    $mail->setFrom('dqh28092001@gmail.com');
+                    $mail->setFrom('dqh28092001@gmail.com', '');               
                     $mail->addAddress($email);
 
                     //Content
+                    $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
                     $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = 'no reply';
-                    $mail->Body    = 'Liên kết xác minh tài khoản của bạn  <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/Functions/verify-email.php?token=' . $code . '">Click</a></b>';
-
+                    $mail->Subject = 'Email verification';
+                    $mail->Body    = '<p>Chào Mừng Đến Với Ashion, Mã Xác Thực Của Bạn Là:: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
+                    // $mail->Body    = '<p>Chào Mừng Đến Với Lucas Bit, Mã Xác Thực Của Bạn Là:: <b style="font-size: 30px;">' . $code . '</b></p>';
+                    // $mail->Body    = 'Liên kết xác minh tài khoản của bạn  <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/Functions/verify-email.php?token=' . $code . '">Click</a></b>';
+                    // $mail->Body    = 'Liên kết xác minh tài khoản của bạn  <b><a href="http://localhost:8081/WEB_CLOTHES_PHP/Functions/verify-email.php?token=' . $verification_code . '">Click</a></b>';
                     $mail->send();
                     echo 'Tin nhắn đã được gửi';
-                } catch (Exception $e) {
-                    echo "Không thể gửi tin nhắn. Lỗi gửi thư: {$mail->ErrorInfo}";
+                    
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);         
+                    $sql = "INSERT INTO users (username, email, password,phone,code,verificationcodes) VALUES (?, ?, ?, ?, ?, ?)";
+                    $stmt = $con->prepare($sql);
+                    $stmt->bind_param("ssssss", $username, $email, $hashedPassword,$phone,$code, $verification_code);  
+                    if ($stmt->execute()) {
+                        $response = array('success' => true, 'username' => $username);
+                        echo json_encode($response);
+                    }
+                  } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }
                 echo "</div>";
-                redirect(" ../Authentication/Login/Login.php", "Đăng ký thành công");
+                redirect("../view/vertifi.php", "Bạn cần nhập mã xác thực");
             } else {
-                redirect(" ../Authentication/Register/Register.php", "Đã xảy ra lỗi");
+                redirect(" ../Authentication/Register/Register.php", "Mật khẩu và Xác nhận mật khẩu không khớp");
             }
-        } else {
-            redirect(" ../Authentication/Register/Register.php", "Mật khẩu và Xác nhận mật khẩu không khớp");
-        }
-    }
-}
+        } 
+        // else {
+        //     redirect(" ../Authentication/Register/Register.php", "Mật khẩu và Xác nhận mật khẩu không khớp");
+        // }
+    
+
 
 
 function send_password_reset($get_name, $get_email, $token)
