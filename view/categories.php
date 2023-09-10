@@ -8,7 +8,6 @@ include('../includes/header.php');
 
 ?>
 
-
     <div class="py-3 bg-light">
         <div class="container">
             <h6 class="text-dark">
@@ -34,7 +33,7 @@ include('../includes/header.php');
                             foreach ($categories as $item) {
                         ?>
                                 <div class="col-md-3 mb-2">
-                                    <a href="/WEB_CLOTHES_PHP/view/products.php?category=<?= $item['slug']; ?>">
+                                    <a href="/WEB_CLOTHES_PHP/view/products.php?category=<?= $item['slug']; ?>" >
                                         <div class="card shadow">
                                             <div class="card-body">
                                                 <img src="../uploads/<?= $item['image']; ?>" alt="Category Image" class="w-100">

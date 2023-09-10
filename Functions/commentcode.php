@@ -4,12 +4,12 @@ include('../db/connect.php');
 include('../Functions/authenticate.php');
 include('../Functions/userfunctions.php');
 
-if (isset($_SESSION['auth'])) {
+if (isset($_SESSION['username'])) {
 
     if (isset($_POST['ct_cmt']))
     {
         $ct_cmt = $_POST['ct_cmt'];
-        $user_id = $_SESSION['auth_user']['user_id'];
+        $user_id = $_SESSION['username'];
         $prod_id = $_POST['prod_id'];
 
         $checkorder = "SELECT user_id, prod_id FROM orders INNER JOIN order_items ON orders.id = order_items.order_id WHERE user_id = '$user_id' AND order_items.prod_id = '$prod_id'";
@@ -20,15 +20,15 @@ if (isset($_SESSION['auth'])) {
             $insert_cmt = "INSERT INTO comment (prod_id, user_id, content) VALUES ('$prod_id', '$user_id', '$ct_cmt')";
             $insert_cmt_run = mysqli_query($con, $insert_cmt);
 
-            redirect("../index.php","Thêm bình luận thành công");
+            redirect("../view/index.php","Thêm bình luận thành công");
         }else{
-            redirect("../index.php","Bạn cần mua sản phẩm để bình luận");
+            redirect("../view/index.php","Bạn cần mua sản phẩm để bình luận");
         }
 
     }
 
 }else{
-    redirect("../index.php","Đăng nhập vào liên kết");
+    redirect("../view/index.php","Đăng nhập vào liên kết");
 
 }
 

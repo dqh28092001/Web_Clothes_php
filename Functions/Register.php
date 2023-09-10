@@ -1,5 +1,5 @@
 <?php
-    include('../db/connect.php') ;
+    require_once '../db/connect.php';  
 
    //email
     use PHPMailer\PHPMailer\PHPMailer;
@@ -77,35 +77,27 @@
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) == 0) {
                     $mail = new PHPMailer(true);
-
                     try {
-                        //Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                        $mail->isSMTP();                                            //Send using SMTP
-                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'dqh28092001@gmail.com';                     //SMTP username
-                        $mail->Password   = 'auwkegklguqzyugp';                               //SMTP password
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-    
-                        //Recipients
+                        $mail->SMTPDebug = 0;               
+                        $mail->isSMTP();               
+                        $mail->Host = 'smtp.gmail.com';                 
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'dqh28092001@gmail.com';
+                        $mail->Password = 'auwkegklguqzyugp';   
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port = 587;
                         $mail->setFrom('dqh28092001@gmail.com', '');               
                         $mail->addAddress($email);
-    
-                        //Content
+                        $mail->isHTML(true);                 
                         $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
-                        $mail->isHTML(true);                                  //Set email format to HTML
                         $mail->Subject = 'Email verification';
-                        $mail->Body    = '<p>Chào Mừng Đến Với Ashion, Mã Xác Thực Của Bạn Là:: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
-                     
+                        $mail->Body    = '<p>Chào Mừng Đến Với Lucas Bit, Mã Xác Thực Của Bạn Là:: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
                         $mail->send();
-                        echo 'Tin nhắn đã được gửi';
-                        
-                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);         
-                        $sql = "INSERT INTO users (username, email, password,phone,code,verificationcodes) VALUES (?, ?, ?, ?, ?, ?)";
+
+                        $hashedPassword = md5($password);         
+                        $sql = "INSERT INTO users (username, email, password,verificationcodes) VALUES (?, ?, ?, ?)";
                         $stmt = $con->prepare($sql);
-                        $stmt->bind_param("ssssss", $username, $email, $hashedPassword,$phone,$code, $verification_code);  
+                        $stmt->bind_param("ssss", $username, $email, $hashedPassword, $verification_code);  
                         if ($stmt->execute()) {
                             $response = array('success' => true, 'username' => $username);
                             echo json_encode($response);

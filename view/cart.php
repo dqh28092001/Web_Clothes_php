@@ -1,10 +1,14 @@
+
+
 <?php
 session_start();
-
-$page_title = "Cart";
+$page_title = "Home Page";
+// include('../functions/homecode.php');
 include('../Functions/cartfunction.php');
-include('../includes/header.php');
-// include('../Functions/authenticate.php');
+
+include('../view/header.php');
+include('../view/slider2.php');
+// include('../../db/connect.php');
 
 ?>
 
@@ -14,6 +18,7 @@ include('../includes/header.php');
     }
 </style>
 <!-- cập nhật số lượng -->
+
 <?php
 if (isset($_POST['capnhatprod_qty'])) {
 
@@ -168,4 +173,31 @@ if (isset($_POST['capnhatprod_qty'])) {
 </section>
 
 
-<?php include('../includes/footer.php'); ?>
+
+<?php include('../view/footer.php'); ?>
+<script>
+    $(document).ready(function() {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    $("#reloader").click(function() {
+        $("#content").load("#content");
+    });
+</script>
+<?

@@ -1,84 +1,40 @@
-<?php 
+
+
+<?php
 session_start();
-    $page_title = "View Order"; 
-    include ('../Functions/userfunctions.php');
-    include ('../includes/header.php');
-    
-    include('../Functions/authenticate.php');
+$page_title = "Home Page";
+include ('../Functions/userfunctions.php');
 
-    if (isset($_GET['t'])) // t ở đây nằm ở my-order.php trong thẻ <a> class="view-order.php?t=   <------- " </a> 
-    {
-        $tracking_no = $_GET['t'];
+include('../view/header.php');
+include('../view/slider2.php');
+// include('../../db/connect.php');
 
-        $orderData = checkTrackingNoValid($tracking_no);
-        if (mysqli_num_rows($orderData) < 0)
-        {
-            ?>
-                <h4>Something went wrong</h4>
-            <?php
-            die();
-        }
 
-    }else{
-        ?>
-            <h4>Something went wrong 12</h4>
-        <?php
-        die();
+    // if (isset($_GET['t'])) // t ở đây nằm ở my-order.php trong thẻ <a> class="view-order.php?t=   <------- " </a> 
+    // {
+    //     $tracking_no = $_GET['t'];
 
-    }
-    $data = mysqli_fetch_array($orderData);
+    //     $orderData = checkTrackingNoValid($tracking_no);
+    //     if (mysqli_num_rows($orderData) < 0)
+    //     {
+    //         ?>
+    //             <h4>Something went wrong</h4>
+    //         <?php
+    //         die();
+    //     }
+
+    // }else{
+    //     ?>
+    //         <h4>Something went wrong 12</h4>
+    //     <?php
+    //     die();
+
+    // }
+    // $data = mysqli_fetch_array($orderData);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+?>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../../css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../../css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../../css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="../../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../../css/style.css" type="text/css">
-
-    <!-- Font Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-    <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="../../css/form.css">
-    <link rel="stylesheet" type="text/css" href="../../css/custom.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-      <!-- Alertify Js -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
-</head>
-<body>
-    
 <div class="py-3 bg-light">
     <div class="container">
         <h6>
@@ -223,3 +179,32 @@ session_start();
 </body>
 </html>
   
+
+
+<?php include('../view/footer.php'); ?>
+<script>
+    $(document).ready(function() {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    $("#reloader").click(function() {
+        $("#content").load("#content");
+    });
+</script>
+<?

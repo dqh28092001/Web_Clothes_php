@@ -1,13 +1,18 @@
-<?php 
+
+
+<?php
 session_start();
-$page_title = "Products"; 
+$page_title = "Home Page";
+// include('../functions/homecode.php');
 include('../Functions/userfunctions.php');
-include('../includes/header.php');
+
+include('../view/header.php');
+include('../view/slider2.php');
+// include('../../db/connect.php');
 
 ?>
 
-
-    <?php
+<?php
     if (isset($_GET['category']))
     {
         $category_slug = $_GET['category'];
@@ -18,15 +23,6 @@ include('../includes/header.php');
         {
             $cid = $category['id'];
         ?>
-    
-            <div class="py-3 bg-light">
-                <div class="container">
-                    <h6 class="text-dark">
-                        <a href="../view/categories.php" class="text-dark">Home /</a>
-                        <a href="#" class="text-dark">Collections / </a>
-                        <?= $category['name']; ?></h6>
-                </div>
-            </div>
     
             <div class="py-3">
             <div class="container">
@@ -78,22 +74,32 @@ include('../includes/header.php');
     }
     
     ?>
-</body>
-<!-- Alertify Js -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
+<?php include('../view/footer.php'); ?>
 <script>
-    <?php if (isset($_SESSION['message'])) { ?>
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success('<?= $_SESSION['message']; ?>');
-    <?php
-        unset($_SESSION['message']);
-    }
-    ?>
-    </script>
-</html>
-
-<?php
-include ('../includes/footer.php')
-?>
-
-  
+    $(document).ready(function() {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    $("#reloader").click(function() {
+        $("#content").load("#content");
+    });
+</script>
+<?

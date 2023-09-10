@@ -1,9 +1,9 @@
 <?php 
 
 
-if (!isset($_SESSION['auth'])) 
+if (!isset($_SESSION['username'])) 
 {
-    redirect("/WEB_CLOTHES_PHP/Authentication/Login/login.php", 'Đăng nhập để tiếp tục');
+    redirect("/WEB_CLOTHES_PHP/view/index.php", 'Đăng nhập để tiếp tục');
     
 }
 

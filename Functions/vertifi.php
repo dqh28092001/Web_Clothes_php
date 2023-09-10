@@ -1,5 +1,5 @@
 <?php
-include('../db/connect.php');
+require_once '../db/connect.php';
 session_start();
 
 if (isset($_POST["vertifiCode"])) {

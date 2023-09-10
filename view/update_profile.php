@@ -2,14 +2,14 @@
 
 include('../db/connect.php');
 session_start();
-$user_id = $_SESSION['auth_user']['user_id'];;
+$user_id = $_SESSION['username'];;
 
 if(isset($_POST['update_profile'])){
 
    $update_name = mysqli_real_escape_string($con, $_POST['update_name']);
    $update_email = mysqli_real_escape_string($con, $_POST['update_email']);
 
-   mysqli_query($con, "UPDATE `users` SET name = '$update_name', email = '$update_email' WHERE id = '$user_id'") or die('query failed');
+   mysqli_query($con, "UPDATE `users` SET name = '$update_name', email = '$update_email' WHERE username = '$user_id'") or die('query failed');
 
    $old_pass = $_POST['old_pass'];
    $update_pass = mysqli_real_escape_string($con, md5($_POST['update_pass']));
@@ -18,12 +18,13 @@ if(isset($_POST['update_profile'])){
 
    if(!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)){
       if($update_pass != $old_pass){
-         $message[] = 'old password not matched!';
-      }elseif($new_pass != $confirm_pass){
-         $message[] = 'confirm password not matched!';
+         $message[] = 'Xin vui lòng nhập mật khẩu!';
+      }else
+      if($new_pass != $confirm_pass){
+         $message[] = 'Xác nhận mật khẩu không khớp!';
       }else{
-         mysqli_query($con, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
-         $message[] = 'password updated successfully!';
+         mysqli_query($con, "UPDATE `users` SET password = '$confirm_pass' WHERE username = '$user_id'") or die('query failed');
+         $message[] = 'Đã cập nhật mật khẩu thành công!';
       }
    }
 
@@ -36,11 +37,12 @@ if(isset($_POST['update_profile'])){
       if($update_image_size > 2000000){
          $message[] = 'image is too large';
       }else{
-         $image_update_query = mysqli_query($con, "UPDATE `users` SET image = '$update_image' WHERE id = '$user_id'") or die('query failed');
+         $image_update_query = mysqli_query($con, "UPDATE `users` SET image = '$update_image' WHERE username = '$user_id'") or die('query failed');
          if($image_update_query){
             move_uploaded_file($update_image_tmp_name, $update_image_folder);
          }
-         $message[] = 'image updated succssfully!';
+         $message[] = 'Hình ảnh được cập nhật thành công!
+         !';
       }
    }
 
@@ -65,7 +67,7 @@ if(isset($_POST['update_profile'])){
 <div class="update-profile">
 
    <?php
-      $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$user_id'") or die('query failed');
+      $select = mysqli_query($con, "SELECT * FROM `users` WHERE username = '$user_id'") or die('query failed');
       if(mysqli_num_rows($select) > 0){
          $fetch = mysqli_fetch_assoc($select);
       }
@@ -74,7 +76,7 @@ if(isset($_POST['update_profile'])){
    <form action="" method="post" enctype="multipart/form-data">
       <?php
          if($fetch['image'] == ''){
-            echo '<img src="images/default-avatar.png">';
+            echo '<img src="../images/default-avatar.png">';
          }else{
             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
          }
@@ -94,17 +96,17 @@ if(isset($_POST['update_profile'])){
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
-            <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
+            <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>" >
             <span>old password :</span>
-            <input type="password" name="update_pass" placeholder="enter previous password" class="box">
+            <input type="password" name="update_pass" placeholder="enter previous password" class="box" >
             <span>new password :</span>
-            <input type="password" name="new_pass" placeholder="enter new password" class="box">
+            <input type="password" name="new_pass" placeholder="enter new password" class="box" >
             <span>confirm password :</span>
-            <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
+            <input type="password" name="confirm_pass" placeholder="confirm new password" class="box" >
          </div>
       </div>
       <input type="submit" value="update profile" name="update_profile" class="btn">
-      <a href="home.php" class="delete-btn">go back</a>
+      <a href="profile.php" class="delete-btn">go back</a>
    </form>
 
 </div>

@@ -5,8 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Xác Thực Email</title>
+    <title>Quên Mật Khẩu</title>
     <style type="text/css">
       @media screen {
         @font-face {
@@ -47,11 +48,6 @@
         -ms-text-size-adjust: 100%;
       }
 
-      table,
-      td {
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
-      }
 
       img {
         -ms-interpolation-mode: bicubic;
@@ -132,35 +128,9 @@
           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
             <tr>
               <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                <p style="margin: 0;">Cảm ơn bạn đã chọn Lucas Bit, vui lòng kiểm tra email và nhập mã xác thực để đăng ký tài khoản thành công.</p>
+                <p style="margin: 0; color:green;">Chúng tôi đã gửi email xác minh tới bạn, Vui lòng nhập kiểm tra <b>email</b> để tiếp tục.</p>
               </td>
             </tr>
-            <form id="formvertifi"> 
-              <tr>
-                <td bgcolor="#ffffff" align="left">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
-                        <table border="0" cellspacing="0" cellpadding="0">
-                          <div id="result" class="text-danger"></div>
-                          <tr>
-                              <div class="input-group">
-                                  <span class="input-group-text">Mã Xác Thực</span>
-                                  <input type="text" id="vertificode" class="form-control" ></input>
-                              </div>
-                          </tr>
-                          <tr>
-                            <td>
-                            <button type="submit" id="vertifi" class="mt-3 btn btn-success">Xác Thực</button
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </form>
             <tr>
             <tr>
               <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
@@ -182,39 +152,5 @@
         </td>
       </tr>
     </table>
-    <?php
-     $username =  $_GET["username"];
-     ?>
   </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script>
-$(document).ready(function() {
-  $("#formvertifi").submit(function(event) {
-    event.preventDefault();
-    var username = "<?php echo isset($username) ? $username : ''; ?>";
-    const vertifiCode = $("#vertificode").val();
-    $.ajax({
-      type: 'POST', 
-      url: '../Functions/vertifi.php',
-      data: { username: username, vertifiCode: vertifiCode }, 
-      dataType: 'json',
-      success: function(response) {
-        if (response.success) {
-          if (response.permission == 0) {
-            window.location.href = 'index.php?page=1';
-          } else if (response.permission == 1) {
-            window.location.href = '../Admin/index.php';
-          } 
-        }else {
-          $('#result').text(response.message);
-        }
-      },
-      error: function() {
-        console.log("lỗi");
-        $('#result').text('An error occurred during the AJAX request.');
-      }
-    });
-  });
-});
-</script>
