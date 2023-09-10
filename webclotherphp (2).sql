@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 04, 2023 lúc 04:37 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Máy chủ: localhost:3306
+-- Thời gian đã tạo: Th9 10, 2023 lúc 09:10 AM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `prod_qty` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -39,24 +40,11 @@ CREATE TABLE `carts` (
 -- Đang đổ dữ liệu cho bảng `carts`
 --
 
-INSERT INTO `carts` (`id`, `user_id`, `prod_id`, `prod_qty`, `created_at`) VALUES
-(108, 1, 16, 6, '2023-07-24 04:08:41'),
-(149, 77, 12, 6, '2023-08-29 03:03:32'),
-(150, 77, 26, 4, '2023-08-29 03:04:52'),
-(152, 77, 15, 1, '2023-08-29 03:15:59'),
-(169, 78, 16, 1, '2023-08-30 01:36:51'),
-(170, 78, 25, 1, '2023-08-30 01:44:08'),
-(171, 77, 17, 1, '2023-08-30 03:27:51'),
-(172, 77, 24, 1, '2023-08-30 03:41:39'),
-(173, 77, 11, 1, '2023-08-30 03:44:25'),
-(174, 77, 21, 14, '2023-08-30 03:46:12'),
-(175, 80, 12, 1, '2023-08-30 03:58:23'),
-(183, 81, 16, 1, '2023-08-30 04:24:24'),
-(184, 81, 25, 1, '2023-08-30 04:24:32'),
-(185, 81, 12, 1, '2023-08-30 04:24:35'),
-(186, 81, 18, 1, '2023-08-30 04:24:47'),
-(187, 81, 15, 1, '2023-08-30 04:31:29'),
-(188, 81, 21, 4, '2023-08-30 06:46:53');
+INSERT INTO `carts` (`id`, `user_id`, `username`, `prod_id`, `prod_qty`, `created_at`) VALUES
+(185, 81, '', 12, 1, '2023-08-30 04:24:35'),
+(186, 81, '', 18, 1, '2023-08-30 04:24:47'),
+(194, 0, '', 16, 4, '2023-09-08 07:33:00'),
+(195, 0, '', 17, 4, '2023-09-08 07:33:25');
 
 -- --------------------------------------------------------
 
@@ -120,7 +108,11 @@ INSERT INTO `comment` (`id`, `prod_id`, `user_id`, `content`, `created_at`) VALU
 (135, 16, 77, '123', '2023-08-30 01:55:39'),
 (136, 16, 77, 'mé cay cú', '2023-08-30 01:57:10'),
 (137, 17, 77, 'kh biết cmt lại được chwua ta\r\n', '2023-08-30 03:27:58'),
-(138, 17, 81, 'thế bh cmt dc chưua\r\n', '2023-08-30 04:15:44');
+(138, 17, 81, 'thế bh cmt dc chưua\r\n', '2023-08-30 04:15:44'),
+(139, 16, 0, 'sao', '2023-09-08 07:08:39'),
+(140, 16, 0, 'lumf mes \r\n', '2023-09-08 07:09:05'),
+(141, 16, 0, 'gi v', '2023-09-08 07:09:44'),
+(142, 16, 0, 'uar sao thes ta\r\n', '2023-09-08 07:12:07');
 
 -- --------------------------------------------------------
 
@@ -301,26 +293,26 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `small_description`
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` text NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `permission` int(11) NOT NULL,
   `verificationcodes` varchar(50) NOT NULL,
-  `role_as` tinyint(4) NOT NULL DEFAULT 0,
-  `verify_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '0=no,1=yes',
-  `vertified` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `forgot_code` varchar(100) NOT NULL,
+  `datecreated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `vertified` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `image`, `phone`, `code`, `verificationcodes`, `role_as`, `verify_status`, `vertified`, `created_at`) VALUES
-(40, 'Đặng QUốc Huy', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'z3961960420136_5d5df1ef1f9b6696af3288bdb11ca530.jpg', '03454102', '061df49d20c90c2047803ab2a119d4ae', '', 1, 1, 0, '2023-07-24 08:13:07'),
-(106, 'huydai059', 'dqh28092001@gmail.com', '$2y$10$r9GXtpIjTPQFl0Gnmsv4fuxPntS1R5KhIPwXuIVM1GR4YtFNVz.o.', '', '1231231323', 'cb8b2dc08838bf1d3f5b74921200717e', '248904', 0, 0, 0, '2023-09-03 14:35:12');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `image`, `phone`, `permission`, `verificationcodes`, `forgot_code`, `datecreated`, `vertified`) VALUES
+(1, 'phamthinga', '0e9212587d373ca58e9bada0c15e6fe4', 'dqh28092001@gmail.com', 'Đặng Quốc Huy', 'z3961967543405_02a7598d1eacd5d07304dfa90d540ab4.jpg', '', 0, '262857', '0f32a9e46422c711622741e36657c575c6c2ac49b5b86c9d68e0f4c6536f15765931b422b9366e4c9a55ce3fcd16042eee4a', '2023-09-08 10:10:24', 1),
+(3, 'dangquochuy', '4297f44b13955235245b2497399d7a93', 'huyhuydai059@gmail.com', '', '', '', 0, '199149', '', '2023-09-08 09:30:42', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -376,7 +368,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -388,7 +380,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -412,7 +404,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
