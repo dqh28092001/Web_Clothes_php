@@ -1,5 +1,6 @@
 <?php
-    require_once '../db/connect.php';  
+   include('../db/connect.php');
+
 
    //email
     use PHPMailer\PHPMailer\PHPMailer;
@@ -94,7 +95,7 @@
                         $mail->Body    = '<p>Chào Mừng Đến Với Lucas Bit, Mã Xác Thực Của Bạn Là:: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
                         $mail->send();
 
-                        $hashedPassword = md5($password);         
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);         
                         $sql = "INSERT INTO users (username, email, password,verificationcodes) VALUES (?, ?, ?, ?)";
                         $stmt = $con->prepare($sql);
                         $stmt->bind_param("ssss", $username, $email, $hashedPassword, $verification_code);  

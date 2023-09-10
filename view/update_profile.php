@@ -12,7 +12,8 @@ if(isset($_POST['update_profile'])){
    mysqli_query($con, "UPDATE `users` SET name = '$update_name', email = '$update_email' WHERE username = '$user_id'") or die('query failed');
 
    $old_pass = $_POST['old_pass'];
-   $update_pass = mysqli_real_escape_string($con, md5($_POST['update_pass']));
+   $update_pass = mysqli_real_escape_string($con, password_hash($_POST['update_pass'], PASSWORD_DEFAULT));
+
    $new_pass = mysqli_real_escape_string($con, md5($_POST['new_pass']));
    $confirm_pass = mysqli_real_escape_string($con, md5($_POST['confirm_pass']));
 
@@ -23,7 +24,8 @@ if(isset($_POST['update_profile'])){
       if($new_pass != $confirm_pass){
          $message[] = 'Xác nhận mật khẩu không khớp!';
       }else{
-         mysqli_query($con, "UPDATE `users` SET password = '$confirm_pass' WHERE username = '$user_id'") or die('query failed');
+         mysqli_query($con, "UPDATE `users` SET password = '$update_pass' WHERE username = '$user_id'") or die('query failed');
+
          $message[] = 'Đã cập nhật mật khẩu thành công!';
       }
    }

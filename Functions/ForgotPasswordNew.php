@@ -17,7 +17,7 @@ if (empty($password)) {
 }else if(strlen($password) >20){
     $response['message'] = 'Mật khẩu phải nhỏ hơn 20 ký tự';
 }else {
-    $hashed_password = md5($password);
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $sql = "SELECT * FROM users WHERE forgot_code = ?";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("s", $forgot_code);
