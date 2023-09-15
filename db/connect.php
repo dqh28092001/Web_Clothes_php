@@ -1,19 +1,15 @@
-
 <?php
-
-// session_start();
-
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "webclotherphp";
-
-// Create connection
-$con = mysqli_connect($host, $username, $password, $dbname);
-mysqli_set_charset($con, 'utf8');
+$servername = "localhost"; // Replace with your database server name
+$usernamedb = "root"; // Replace with your database username
+$password = ""; // Replace with your database password
+$dbname = "webclotherphp"; // Replace with your database name
+ 
+// Create a connection
+$conn = new mysqli($servername, $usernamedb, $password, $dbname);
 
 // Check connection
-if (!$con) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
+?>
